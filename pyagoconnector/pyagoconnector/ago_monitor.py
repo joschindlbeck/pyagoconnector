@@ -27,7 +27,7 @@ def start_monitor():
 
         window.update()
 
-        time.sleep(0.1)
+        time.sleep(0.2)
 
     #window.mainloop()
 
