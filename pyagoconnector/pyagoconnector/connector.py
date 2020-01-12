@@ -2,7 +2,7 @@ import socket
 import threading
 import time
 import json
-
+import pkg_resources
 
 class AgoPgn:
     """ PGN message from AGOpenGPS:
@@ -20,6 +20,11 @@ class AgoPgn:
 
     def __repr__(self):
         return str(self.data)
+
+
+def get_pgndef_file():
+    path = 'pgn_definition.json'  # always use slash
+    return pkg_resources.resource_filename(__name__, path)
 
 
 class AgoUdpServer:
@@ -44,7 +49,7 @@ class AgoUdpServer:
 
     def load_pgndef(self):
         """ Load PGN definition """
-        with open("pgn_definition.json", "r") as f:
+        with open(get_pgndef_file(), "r") as f:
             self.pgndef = json.load(f)
 
         # prepare a PGN object for each definition in the list
@@ -87,6 +92,18 @@ class AgoUdpServer:
                 print(f"Exception happened! {ex}")
                 print(f"Received Message ${str(data)}")
                 raise ex
+
+    def get_unique_param_value(self, param_id: str):
+        """ Get parameter value via ID; assumes the ID is unique (otherwise returns first value)"""
+        for pgn in self.pgndata.values():  # loop pgns
+            for cur_par_id in pgn.data:  # loop parameters
+                if cur_par_id == param_id:
+                    return pgn.data[cur_par_id]
+
+    def get_param_value(self, param_id: str, pgn_header: tuple):
+        """ Get parameter value via ID & PGM message header"""
+        pgn = self.pgndata[pgn_header]
+        return pgn.data[param_id]
 
     @staticmethod
     def parse_data(pgn: AgoPgn, data: bytes):
