@@ -74,11 +74,14 @@ class AgoUdpServer:
                 # construct the tuple / key for the definition
                 hd = (hd_hi, hd_lo)
                 # get definition
-                pgn = self.pgndata[hd]
-                if pgn is not None:
+                try:
+                    pgn = self.pgndata[hd]
                     # definition found, we want the data
                     datapart = bdata[2:]
                     AgoUdpServer.parse_data(pgn=pgn, data=datapart)
+                except KeyError as ex:
+                    # Nothing found for his PGN message key, we are not interested in this message
+                    pass
 
             except BaseException as ex:
                 print(f"Exception happened! {ex}")
@@ -128,5 +131,6 @@ if __name__ == "__main__":
     a = start_server_thread()
     while True:
         print("Current Data:")
-        print(a.pgndata)
+        for d in a.pgndata:
+            print(d)
         time.sleep(1)
