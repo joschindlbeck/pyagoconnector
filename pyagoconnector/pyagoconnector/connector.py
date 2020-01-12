@@ -96,20 +96,20 @@ class AgoUdpServer:
                 pgnid = "Unkown" + str(i)
                 pgn.data[pgnid] = b
             else:
-               # definition available
-               pgn_def = pgn.data_def[i]
-               # set data based on type
-               pgntype = pgn_def["Type"]
-               if pgntype == "int":
-                   pgn.data[pgn_def["Id"]] = int(b)
-               elif pgntype == "float":
-                   pgn.data[pgn_def["Id"]] = float(b)
-               elif pgntype == "str":
-                   pgn.data[pgn_def["Id"]] = str(b)
-               elif pgntype == "bool":
-                   pgn.data[pgn_def["Id"]] = bool(b)
-               else:
-                   pgn.data[pgn_def["Id"]] = b
+                # definition available
+                pgn_def = pgn.data_def[i]
+                # set data based on type
+                pgntype = pgn_def["Type"]
+                if pgntype == "int":
+                    pgn.data[pgn_def["Id"]] = int(b)
+                elif pgntype == "float":
+                    pgn.data[pgn_def["Id"]] = float(b)
+                elif pgntype == "str":
+                    pgn.data[pgn_def["Id"]] = str(b)
+                elif pgntype == "bool":
+                    pgn.data[pgn_def["Id"]] = bool(b)
+                else:
+                    pgn.data[pgn_def["Id"]] = b
 
             i += 1
 
@@ -130,4 +130,3 @@ if __name__ == "__main__":
         print("Current Data:")
         print(a.pgndata)
         time.sleep(1)
-
