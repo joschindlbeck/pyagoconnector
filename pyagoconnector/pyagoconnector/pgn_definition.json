@@ -53,10 +53,6 @@
         "Type": "int"
       },
       {
-        "Id": "sdDistanceHi",
-        "Description": "sdDistanceHi",
-        "Type": "int"
-      },            {
         "Id": "rdSpeedXFour",
         "Description": "rdSpeedXFour",
         "Type": "int"
@@ -79,6 +75,48 @@
       },
       { "Id": "rd9",
         "Description": "rd9",
+        "Type": "int"
+      }
+    ]
+  },
+  {
+    "PGN": 32764,
+    "Description": "AGO Steer Settings",
+    "Header_Hi": 127,
+    "Header_Lo": 252,
+    "Data": [{
+      "Id": "ssKP",
+      "Description": "ssKP",
+      "Type": "int"
+    },
+      {
+        "Id": "ssKi",
+        "Description": "ssKi",
+        "Type": "int"
+      },
+      {
+        "Id": "ssKd",
+        "Description": "ssKd",
+        "Type": "int"
+      },            {
+        "Id": "ssKo",
+        "Description": "ssKo",
+        "Type": "int"
+      },            {
+        "Id": "ssSteerOffset",
+        "Description": "ssSteerOffset",
+        "Type": "int"
+      },            {
+        "Id": "ssMinPWM",
+        "Description": "ssMinPWM",
+        "Type": "int"
+      },
+      { "Id": "ssMaxIntegral",
+        "Description": "ssMaxIntegral",
+        "Type": "int"
+      },
+       { "Id": "ssCountsPerDegree",
+        "Description": "ssCountsPerDegree",
         "Type": "int"
       }
     ]

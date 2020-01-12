@@ -14,6 +14,8 @@ class AgoPgn:
         # Instance attributes
         self.h_hi: int = header_hi
         self.h_low: int = header_low
+        self.pgn_number: int = 0
+        self.descr: str = "Description"
         self.header: tuple = (self.h_hi, self.h_low)
         self.data_def: list = data_def
         self.data: dict = {}
@@ -33,6 +35,7 @@ class AgoUdpServer:
     def __init__(self, ip: str = "", port: int = 8888):
         """ Initalize server """
         # Instance attributes
+        self.thread: threading.Thread = None
         self.ip_address: str = ip
         self.port: int = port
         self.serverSock: socket = None
@@ -55,6 +58,8 @@ class AgoUdpServer:
         # prepare a PGN object for each definition in the list
         for d in self.pgndef:
             pgn = AgoPgn(header_low=d["Header_Lo"], header_hi=d["Header_Hi"], data_def=d["Data"])
+            pgn.pgn_number = d["PGN"]
+            pgn.descr = d["Description"]
             self.pgndata[pgn.header] = pgn      # add PGN to data dict with header tuple as key
 
     def run(self):
@@ -113,7 +118,7 @@ class AgoUdpServer:
             # get corresponding data def
             if not i < (data_def_len - 1):
                 # more data than defined!
-                pgnid = "Unkown" + str(i)
+                pgnid = "Undefined" + str(i)
                 pgn.data[pgnid] = b
             else:
                 # definition available
@@ -133,19 +138,23 @@ class AgoUdpServer:
 
             i += 1
 
+    @staticmethod
+    def start_server_thread(ip: str = "", port: int = 8888, name: str = "AgUDPServer"):
+        """ Start UDP server as separate thread """
 
-def start_server_thread(ip: str = "", port: int = 8888, name: str = "AgUDPServer") -> AgoUdpServer:
-    """ Start UDP server as separate thread """
+        ago: AgoUdpServer = AgoUdpServer(ip, port)
+        ago.thread = threading.Thread(name=name, target=ago.run, daemon=True)
+        ago.thread.start()
+        return ago
 
-    ago: AgoUdpServer = AgoUdpServer(ip, port)
-    t = threading.Thread(name=name, target=ago.run, daemon=True)
-    t.start()
-    return ago
+    def stop_server(self):
+        """ Stop UDP server """
+        self.serverSock.close()
 
 
 if __name__ == "__main__":
     """ Start server """
-    a = start_server_thread()
+    a = AgoUdpServer.start_server_thread()
     while True:
         print("Current Data:")
         for d in a.pgndata.items():
