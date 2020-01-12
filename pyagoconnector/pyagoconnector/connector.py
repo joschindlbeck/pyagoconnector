@@ -131,6 +131,6 @@ if __name__ == "__main__":
     a = start_server_thread()
     while True:
         print("Current Data:")
-        for d in a.pgndata:
+        for d in a.pgndata.items():
             print(d)
         time.sleep(1)
