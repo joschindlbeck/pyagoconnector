@@ -1,0 +1,86 @@
+[
+  {
+    "PGN": 32766,
+    "Description": "AGO Autosteer data",
+    "Header_Hi": 127,
+    "Header_Lo": 254,
+    "Data": [{
+      "Id": "sdRelayLo",
+      "Description": "sdRelayLo",
+      "Type": "int"
+    },
+      {
+        "Id": "sdSpeed",
+        "Description": "sdSpeed",
+        "Type": "int"
+      },
+      {
+        "Id": "sdDistanceHi",
+        "Description": "sdDistanceHi",
+        "Type": "int"
+      },            {
+        "Id": "sdDistanceLo",
+        "Description": "sdDistanceLo",
+        "Type": "int"
+      },            {
+        "Id": "sdSteerAngleHi",
+        "Description": "sdSteerAngleHi",
+        "Type": "int"
+      },            {
+        "Id": "sdSteerAngleLo",
+        "Description": "sdSteerAngleLo",
+        "Type": "int"
+      },
+      { "Id": "sdYouTurnByte",
+        "Description": "sdYouTurnByte",
+        "Type": "int"
+      }
+    ]
+  },
+{
+    "PGN": 32762,
+    "Description": "AGO Relay data",
+    "Header_Hi": 127,
+    "Header_Lo": 250,
+    "Data": [{
+      "Id": "rdSectionControlByteHi",
+      "Description": "rdSectionControlByteHi",
+      "Type": "int"
+    },
+      {
+        "Id": "rdSectionControlByteLo",
+        "Description": "rdSectionControlByteLo",
+        "Type": "int"
+      },
+      {
+        "Id": "sdDistanceHi",
+        "Description": "sdDistanceHi",
+        "Type": "int"
+      },            {
+        "Id": "rdSpeedXFour",
+        "Description": "rdSpeedXFour",
+        "Type": "int"
+      },            {
+        "Id": "rdTramLine",
+        "Description": "rdTramLine",
+        "Type": "int"
+      },            {
+        "Id": "rdTree",
+        "Description": "rdTree",
+        "Type": "int"
+      },
+      { "Id": "rdUTurn",
+        "Description": "rdUTurn",
+        "Type": "int"
+      },
+       { "Id": "rdHydLift",
+        "Description": "rdHydLift",
+        "Type": "int"
+      },
+      { "Id": "rd9",
+        "Description": "rd9",
+        "Type": "int"
+      }
+    ]
+  }
+]
