@@ -3,6 +3,8 @@ import threading
 import time
 import json
 import pkg_resources
+import logging
+
 
 class AgoPgn:
     """ PGN message from AGOpenGPS:
@@ -69,8 +71,7 @@ class AgoUdpServer:
         self.serverSock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.serverSock.bind((self.ip_address, self.port))
 
-        print("Server startet: " + self.ip_address + ":" + str(self.port))
-
+        logging.info("Server startet: " + self.ip_address + ":" + str(self.port))
         while True:
             data = self.serverSock.recvfrom(1024)
             # print(f"Message received: ${str(data)}")
@@ -89,13 +90,12 @@ class AgoUdpServer:
                     # definition found, we want the data
                     datapart = bdata[2:]
                     AgoUdpServer.parse_data(pgn=pgn, data=datapart)
-                except KeyError as ex:
+                except KeyError:
                     # Nothing found for his PGN message key, we are not interested in this message
                     pass
 
             except BaseException as ex:
-                print(f"Exception happened! {ex}")
-                print(f"Received Message ${str(data)}")
+                logging.exception(f"Exception while receiving message ${str(data)}", ex)
                 raise ex
 
     def get_unique_param_value(self, param_id: str):
